@@ -5,8 +5,8 @@
 # Check out README.md for more details
 
 # Check dependencies
-[[ $(which youtube-dl) ]] || echo "Error: missing youtube-dl. Download it here: http://xmlstar.sourceforge.net/" && exit
-[[ $(which xmlstarlet) ]] || echo "Error: missing xmlstarlet. Download it here: https://github.com/rg3/youtube-dl/" && exit
+[[ $(which youtube-dl) ]] || (echo "Error: missing youtube-dl. Download it here: http://xmlstar.sourceforge.net/" && exit)
+[[ $(which xmlstarlet) ]] || (echo "Error: missing xmlstarlet. Download it here: https://github.com/rg3/youtube-dl/" && exit)
 
 YDL="youtube-dl -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]'"
 # If invoked with an URL, download that URL and exit
