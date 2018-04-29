@@ -28,6 +28,8 @@ That's it! Feedtube will convert the youtube xml file to its own format (`.list.
 
 Running `feedtube.sh` will download new videos for your subscriptions. There's nothing more to it :)
 
+You may run it with cron, or manually. The only caveat is that it doesn't support multiple instances running at the same time. Be careful not to overlap cron executions; give it plenty of time in case it needs to download huge files.
+
 Downloaded filenames have the format: `[Channel name] - Video name`. File timestamp is set by `youtube-dl` as the video upload date.
 
 
