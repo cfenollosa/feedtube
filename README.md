@@ -8,9 +8,11 @@ Feedtube is for you if:
 - You need to download videos and watch them offline
 - You want to watch videos without ads. Note that, as such, video creators and Youtube don't get paid
 
+
 ## Dependencies
 
 [xmlstarlet](http://xmlstar.sourceforge.net) and [youtube-dl](https://github.com/rg3/youtube-dl/)
+
 
 ## Setup
 
@@ -19,13 +21,15 @@ Feedtube is for you if:
 3. Place the downloaded file on the same folder as feedtube
 4. Run `./feedtube.sh`
 
-That's it!
+That's it! Feedtube will convert the youtube xml file to its own format (`.list.csv`) and keep track of videos.
+
 
 ## Running Feedtube
 
 Running `feedtube.sh` will download new videos for your subscriptions. There's nothing more to it :)
 
 Downloaded filenames have the format: `[Channel name] - Video name`. File timestamp is set by `youtube-dl` as the video upload date.
+
 
 ## Configuration
 
@@ -34,6 +38,7 @@ Downloaded filenames have the format: `[Channel name] - Video name`. File timest
 
 You can also edit the script to change parameters for `youtube-dl`, like the maximum quality (set to 1080p by default) or video format. [Read youtube-dl documentation](https://github.com/rg3/youtube-dl/blob/master/README.md#readme) for more information.
 
+
 ## Adding new subscriptions
 
 Edit `.list.csv` with a text editor and add a new line, with the format:
@@ -41,6 +46,7 @@ Edit `.list.csv` with a text editor and add a new line, with the format:
 `Channel title <TAB> channel RSS address`
 
 IMPORTANT NOTE: Next time you run `feedtube.sh`, it will download all videos for that channel. If you don't want that--I don't--, just Ctrl-C just as the video download starts and then remove any temporal files. Maybe this will be fixed in a future release.
+
 
 ## Watching videos
 
@@ -52,6 +58,7 @@ You can also simulate Youtube's sorting options using your OS file explorer:
 
 - Sort by channel: Sort by filename
 - Sort by upload date: Sort by file date
+
 
 # Changelog
 
