@@ -4,7 +4,7 @@ A feed video downloader for Youtube
 Feedtube is for you if:
 
 - You are a fan of RSS
-- The Youtube website is glitchy for you, or you want to use Youtube anonymously or without signing up to Google
+- You don't like using the Youtube website for some reason (broken js, privacy, or other) but want to keep a list of channel subscriptions
 - You need to download videos and watch them offline
 - You want to watch videos without ads. Note that, as such, video creators and Youtube don't get paid
 
