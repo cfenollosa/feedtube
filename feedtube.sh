@@ -21,7 +21,7 @@ DOWNLOADED_IDS=.downloaded_ids
 OPML=$(ls *.xml 2> /dev/null)
 LIST_CSV=.list.csv
 if [[ ! -f $DOWNLOADED_IDS ]]; then
-    [[ -z $OPML ]] && echo "First run setup: Missing subscriptions opml file. Please follow these instructions: https://support.google.com/youtube/answer/6224202?hl=en" && exit
+    [[ -z $OPML ]] && echo "First run setup: Missing subscriptions file. Please follow these instructions: https://support.google.com/youtube/answer/6224202?hl=en" && exit
     [[ -f $LIST_CSV ]] && echo "First run setup: existing $LIST_CSV. Stopping" && exit
     cat $OPML | sed -e $'s/ \/>/\\\n/g' | sed 's/.*title="\(.*\)" type.*xmlUrl="\(.*\)".*/\1	\2/g'| grep youtube > $LIST_CSV
     echo -n "" > $DOWNLOADED_IDS
