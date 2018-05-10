@@ -11,7 +11,7 @@ Feedtube is for you if:
 
 ## Dependencies
 
-[xmlstarlet](http://xmlstar.sourceforge.net) and [youtube-dl](https://github.com/rg3/youtube-dl/)
+[xmlstarlet](http://xmlstar.sourceforge.net) and [youtube-dl](https://github.com/rg3/youtube-dl/) (plus [ffmpeg](http://ffmpeg.org))
 
 
 ## Setup
