@@ -4,6 +4,9 @@
 # Copyright Carlos Fenollosa <cf@cfenollosa.com>, 2018. Licensed under the GNU GPL v3: https://www.gnu.org/licenses/gpl-3.0.en.html
 # Check out README.md for more details
 
+# Check help switch and show usage
+[[ $1 == "-h" ]] && echo -e "Usage: feedtube.sh [∅ | -q | <youtube URL>]\nTypical usage without parameters. Read the README.md for more information on the usage" && exit
+
 # Check dependencies
 [[ $(which youtube-dl) ]] || (echo "Error: missing youtube-dl. Download it here: https://github.com/rg3/youtube-dl/" && exit)
 [[ $(which xmlstarlet) ]] || (echo "Error: missing xmlstarlet. Download it here: http://xmlstar.sourceforge.net/" && exit)
