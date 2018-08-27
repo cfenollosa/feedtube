@@ -4,6 +4,9 @@
 # Copyright Carlos Fenollosa <cf@cfenollosa.com>, 2018. Licensed under the GNU GPL v3: https://www.gnu.org/licenses/gpl-3.0.en.html
 # Check out README.md for more details
 
+# Manual switches. Possible values are "yes" or "" (empty)
+ASCII_ONLY="yes"  # Output video filename will only contain ascii characters. Use for compatibility with some systems/players like Miro.
+
 # Check help switch and show usage
 [[ $1 == "-h" ]] && echo -e "Usage: feedtube.sh [∅ | -q | <youtube URL>]\nTypical usage without parameters. Read the README.md for more information on the usage" && exit
 
@@ -15,8 +18,10 @@ XST=$(which xmlstarlet)
 
 # If invoked with an URL, download that URL and exit
 if [[ $1 ]] && [[ $1 == http* ]]; then
-    echo "Downloading video..."
-    $YDL -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' "$1"
+    TITLE="$(youtube-dl -e --no-warnings $1)"
+    [[ "$ASCII_ONLY" ]] && TITLE="$(echo $TITLE | iconv -f UTF-8 -t ascii//IGNORE)"
+    echo "Downloading $TITLE..."
+    $YDL -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' -o "$TITLE" "$1"
     exit
 fi
 
@@ -61,7 +66,9 @@ while read SUB; do
         [[ $? -eq 0 ]] && continue
 
         # Set file name
+        [[ "$ASCII_ONLY" ]] && TITLE="$(echo $TITLE | iconv -f UTF-8 -t ascii//IGNORE)"
         FILENAME="[$CHANNEL] - $TITLE"
+        FILENAME="$(echo $FILENAME | iconv -f UTF-8 -t ascii//IGNORE)"  # Ignore non-ascii for Miro compatibility
 
         # Download it
         shopt -s nocasematch
