@@ -52,9 +52,7 @@ Edit `.list.csv` with a text editor and add a new line, with the format:
 
 `Channel title <TAB> channel RSS address`
 
-IMPORTANT NOTE: Next time you run `feedtube.sh`, it will download all videos for that channel. If you don't want that (I don't), just Ctrl-C as the download starts. Remove any temporal files when the script ends.
-
-This will be fixed in a future release.
+IMPORTANT NOTE: Next time you run `feedtube.sh`, it will download all videos for that channel. If you don't want that (I don't), just Ctrl-C as the download starts. The script will try to get rid of temporal files.
 
 
 ## Watching videos
