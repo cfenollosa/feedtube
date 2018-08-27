@@ -59,7 +59,7 @@ IMPORTANT NOTE: Next time you run `feedtube.sh`, it will download all videos for
 
 Downloaded videos can be watched using any standard video player.
 
-I use [Miro](http://www.getmiro.com) to watch videos. I have set it up to "watch" the downloads folder for new videos, and lets me organize it by date, size, and others. Furthermore, the video player keeps track of the time you stop watching and lets you resume, like Youtube.
+I use [Miro](http://www.getmiro.com) to watch videos. I have set it up to monitor the downloads folder for new videos, and lets me organize it by date, size, and others. Furthermore, the video player keeps track of the time you stop watching and lets you resume, like Youtube.
 
 You can also simulate Youtube's sorting options using your OS file explorer:
 
@@ -69,4 +69,5 @@ You can also simulate Youtube's sorting options using your OS file explorer:
 
 # Changelog
 
+- 1.1, 2018-08-27. Added option to ignore non-ASCII characters in titles. Better management of external tools.
 - 1.0, 2018-04-29. First working release
