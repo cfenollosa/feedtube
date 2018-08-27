@@ -8,13 +8,15 @@
 [[ $1 == "-h" ]] && echo -e "Usage: feedtube.sh [∅ | -q | <youtube URL>]\nTypical usage without parameters. Read the README.md for more information on the usage" && exit
 
 # Check dependencies
-[[ $(which youtube-dl) ]] || (echo "Error: missing youtube-dl. Download it here: https://github.com/rg3/youtube-dl/" && exit)
-[[ $(which xmlstarlet) ]] || (echo "Error: missing xmlstarlet. Download it here: http://xmlstar.sourceforge.net/" && exit)
+YDL=$(which youtube-dl)
+[[ -z $YDL ]] && echo "Error: missing youtube-dl. Download it here: https://github.com/rg3/youtube-dl/" && exit
+XST=$(which xmlstarlet)
+[[ -z $XST ]] && echo "Error: missing xmlstarlet. Download it here: http://xmlstar.sourceforge.net/" && exit
 
 # If invoked with an URL, download that URL and exit
 if [[ $1 ]] && [[ $1 == http* ]]; then
     echo "Downloading video..."
-    youtube-dl -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' "$1"
+    $YDL -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' "$1"
     exit
 fi
 
@@ -44,10 +46,10 @@ while read SUB; do
     [[ ! -s $R_FILE ]] && echo "Error downloading xml" && rm $R_FILE && continue
 
     # Parse elements
-    xmlstarlet sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry" -v atom:title -n $R_FILE > $R_FILE.title
-    xmlstarlet sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry/atom:link" -v @href -n $R_FILE > $R_FILE.href
-    xmlstarlet sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry" -v atom:id -n $R_FILE > $R_FILE.id
-    xmlstarlet sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry" -v atom:published -n $R_FILE > $R_FILE.published
+    $XST sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry" -v atom:title -n $R_FILE > $R_FILE.title
+    $XST sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry/atom:link" -v @href -n $R_FILE > $R_FILE.href
+    $XST sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry" -v atom:id -n $R_FILE > $R_FILE.id
+    $XST sel -N atom="http://www.w3.org/2005/Atom" -t -m "/atom:feed/atom:entry" -v atom:published -n $R_FILE > $R_FILE.published
     paste  $R_FILE.id $R_FILE.title $R_FILE.href $R_FILE.published > $R_FILE.pasted
 
     # Check if videos have been downloaded
@@ -65,7 +67,7 @@ while read SUB; do
         shopt -s nocasematch
         if [[ -z $FIRST_RUN ]] || [[ $DOWNLOAD == "y" ]] ; then
             [[ $1 == "-q" ]] || echo "Downloading $FILENAME"
-            youtube-dl -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' -o "$FILENAME" "$HREF"
+            $YDL -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' -o "$FILENAME" "$HREF"
         fi
 
         # Mark as downloaded 
@@ -76,5 +78,7 @@ while read SUB; do
     rm $R_FILE*
 
 done < $LIST_CSV
+
+rm -f *.part  # Delete partially downloaded files (errors or Ctrl-C)
 
 [[ $FIRST_RUN ]] && rm $OPML && echo "First run finished. Subsequent runs of this script will download new videos. Enjoy!"
