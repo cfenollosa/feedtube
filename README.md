@@ -32,11 +32,12 @@ You may run it with cron, or manually. The only caveat is that it doesn't suppor
 
 Downloaded filenames have the format: `[Channel name] - Video name`. File timestamp is set by `youtube-dl` as the video upload date.
 
-
-## Configuration
+### Commandline flags
 
 - `-q` Quiet mode. No output is generated, except errors
 - `<Youtube URL>` Single video run. Downloads the selected video and exits. No feeds are parsed.
+
+## Configuration
 
 Edit `feedtube.sh` to access advanced settings:
 
