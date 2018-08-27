@@ -5,7 +5,7 @@
 # Check out README.md for more details
 
 # Manual switches. Possible values are "yes" or "" (empty)
-ASCII_ONLY="yes"  # Output video filename will only contain ascii characters. Use for compatibility with some systems/players like Miro.
+ASCII_ONLY="yes"  # Output video filename will only contain ascii characters
 
 # Check help switch and show usage
 [[ $1 == "-h" ]] && echo -e "Usage: feedtube.sh [∅ | -q | <youtube URL>]\nTypical usage without parameters. Read the README.md for more information on the usage" && exit

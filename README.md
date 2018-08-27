@@ -38,6 +38,10 @@ Downloaded filenames have the format: `[Channel name] - Video name`. File timest
 - `-q` Quiet mode. No output is generated, except errors
 - `<Youtube URL>` Single video run. Downloads the selected video and exits. No feeds are parsed.
 
+Edit `feedtube.sh` to access advanced settings:
+
+- `ASCII_ONLY="yes"`: Output video filename will only contain ascii characters. Use for compatibility with some systems/players like Miro. Non-ascii characters will be ignored. This can be a problem in some languages or locales. Set it to `""` (empty) to enable UTF-8 characters in file names.
+
 You can also edit the script to change parameters for `youtube-dl`, like the maximum quality (set to 1080p by default) or video format. [Read youtube-dl documentation](https://github.com/rg3/youtube-dl/blob/master/README.md#readme) for more information.
 
 
