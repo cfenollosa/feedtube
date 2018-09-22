@@ -75,7 +75,9 @@ while read SUB; do
             [[ $1 == "-q" ]] || echo "Downloading $FILENAME"
             $YDL  -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' -o "$FILENAME" "$HREF"
 
-            if [[ $? -ne 0 ]]; then
+            if [[ $? -eq 0 ]]; then
+                echo -e "$FILENAME\t$ID" >> $DOWNLOADED_IDS  # Mark as downloaded
+	    else
                 rm -f "$1*"
                 read -p "Interrupted. Skip or Retry later? (s/R) " INTERRUPTED < /dev/tty
                 [[ "$INTERRUPTED" == "s" ]] && echo -e "$FILENAME\t$ID" >> $DOWNLOADED_IDS  # Mark as downloaded
