@@ -69,5 +69,6 @@ You can also simulate Youtube's sorting options using your OS file explorer:
 
 # Changelog
 
+- 1.2, 2018-09-22. Give the user the option to Skip video or Retry later when Ctrl-c on youtube-dl
 - 1.1, 2018-08-27. Added option to ignore non-ASCII characters in titles. Better management of external tools.
 - 1.0, 2018-04-29. First working release
