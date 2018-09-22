@@ -78,7 +78,7 @@ while read SUB; do
             if [[ $? -ne 0 ]]; then
                 rm -f "$1*"
                 read -p "Interrupted. Skip or Retry later? (s/R) " INTERRUPTED < /dev/tty
-                [[ "$INTERRUPTED" == "s" ]]; && echo -e "$FILENAME\t$ID" >> $DOWNLOADED_IDS  # Mark as downloaded
+                [[ "$INTERRUPTED" == "s" ]] && echo -e "$FILENAME\t$ID" >> $DOWNLOADED_IDS  # Mark as downloaded
             fi
         fi
 
