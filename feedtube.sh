@@ -18,7 +18,7 @@ XST=$(which xmlstarlet)
 
 # If invoked with an URL, download that URL and exit
 if [[ $1 ]] && [[ $1 == http* ]]; then
-    TITLE="$(youtube-dl -e --no-warnings $1)"
+    TITLE="$($YDL -e --no-warnings $1)"
     [[ "$ASCII_ONLY" ]] && TITLE="$(echo $TITLE | iconv -f UTF-8 -t ascii//IGNORE)"
     echo "Downloading $TITLE..."
     $YDL -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' -o "$TITLE" "$1"
@@ -32,11 +32,10 @@ LIST_CSV=.list.csv
 if [[ ! -f $DOWNLOADED_IDS ]]; then
     [[ -z $OPML ]] && echo "First run setup: Missing subscriptions file. Please follow these instructions: https://support.google.com/youtube/answer/6224202?hl=en" && exit
     [[ -f $LIST_CSV ]] && echo "First run setup: existing $LIST_CSV. Stopping" && exit
-    cat $OPML | sed -e $'s/ \/>/\\\n/g' | sed 's/.*title="\(.*\)" type.*xmlUrl="\(.*\)".*/\1	\2/g'| grep youtube > $LIST_CSV
+    cat $OPML | sed -e $'s/ \/>/\\\n/g' | sed 's/.*title="\(.*\)" type.*xmlUrl="\(.*\)".*/\1    \2/g'| grep youtube > $LIST_CSV
     echo -n "" > $DOWNLOADED_IDS
     FIRST_RUN=1
-    echo -n "First run setup: Download latest videos for all subscriptions? This may take a long time/bandwidth (y/N) "
-    read DOWNLOAD
+    read -p "First run setup: Download latest videos for all subscriptions? This may take a long time/bandwidth (y/N) " DOWNLOAD
 fi
 
 [[ ! -f $LIST_CSV ]] && echo "Error: $LIST_CSV not found. Please run setup again" && exit
@@ -74,11 +73,14 @@ while read SUB; do
         shopt -s nocasematch
         if [[ -z $FIRST_RUN ]] || [[ $DOWNLOAD == "y" ]] ; then
             [[ $1 == "-q" ]] || echo "Downloading $FILENAME"
-            $YDL -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' -o "$FILENAME" "$HREF"
-        fi
+            $YDL  -q --no-warnings -f 'bestvideo[ext=mp4+height<=1080]+bestaudio[ext=m4a]' -o "$FILENAME" "$HREF"
 
-        # Mark as downloaded 
-        echo -e "$FILENAME\t$ID" >> $DOWNLOADED_IDS
+            if [[ $? -ne 0 ]]; then
+                rm -f "$1*"
+                read -p "Interrupted. Skip or Retry later? (s/R) " INTERRUPTED < /dev/tty
+                [[ "$INTERRUPTED" == "s" ]]; && echo -e "$FILENAME\t$ID" >> $DOWNLOADED_IDS  # Mark as downloaded
+            fi
+        fi
 
     done < $R_FILE.pasted
 
