@@ -32,11 +32,12 @@ You may run it with cron, or manually. The only caveat is that it doesn't suppor
 
 Downloaded filenames have the format: `[Channel name] - Video name`. File timestamp is set by `youtube-dl` as the video upload date.
 
-
-## Configuration
+### Commandline flags
 
 - `-q` Quiet mode. No output is generated, except errors
 - `<Youtube URL>` Single video run. Downloads the selected video and exits. No feeds are parsed.
+
+## Configuration
 
 Edit `feedtube.sh` to access advanced settings:
 
@@ -51,16 +52,14 @@ Edit `.list.csv` with a text editor and add a new line, with the format:
 
 `Channel title <TAB> channel RSS address`
 
-IMPORTANT NOTE: Next time you run `feedtube.sh`, it will download all videos for that channel. If you don't want that (I don't), just Ctrl-C as the download starts. Remove any temporal files when the script ends.
-
-This will be fixed in a future release.
+IMPORTANT NOTE: Next time you run `feedtube.sh`, it will download all videos for that channel. If you don't want that (I don't), just Ctrl-C as the download starts. The script will try to get rid of temporal files.
 
 
 ## Watching videos
 
 Downloaded videos can be watched using any standard video player.
 
-I use [Miro](http://www.getmiro.com) to watch videos. I have set it up to "watch" the downloads folder for new videos, and lets me organize it by date, size, and others. Furthermore, the video player keeps track of the time you stop watching and lets you resume, like Youtube.
+I use [Miro](http://www.getmiro.com) to watch videos. I have set it up to monitor the downloads folder for new videos, and lets me organize it by date, size, and others. Furthermore, the video player keeps track of the time you stop watching and lets you resume, like Youtube.
 
 You can also simulate Youtube's sorting options using your OS file explorer:
 
@@ -70,4 +69,5 @@ You can also simulate Youtube's sorting options using your OS file explorer:
 
 # Changelog
 
+- 1.1, 2018-08-27. Added option to ignore non-ASCII characters in titles. Better management of external tools.
 - 1.0, 2018-04-29. First working release
